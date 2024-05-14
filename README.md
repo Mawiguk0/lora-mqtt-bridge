@@ -37,6 +37,7 @@ The application uses the following environment variables, which you can set in a
 - `UPTIME_TOPIC`: The MQTT topic for uptime data (default: `bridge/uptime`)
 - `SERIAL_URL`: The URL of the serial device (default: `/dev/ttyS0`)
 - `SERIAL_BAUDRATE`: The baud rate for the serial connection (default: `9600`)
+- `SLEEP_INTERVAL`: The Interval of seconds to wait between temperature and uptime mqtt message (default: `60`)
 
 ### Build and Run the Docker Container
 
@@ -50,6 +51,11 @@ The application uses the following environment variables, which you can set in a
 
     ```bash
     docker-compose up -d
+    ```
+
+You can also run following to build and start the broker included docker-compose-broker.yml
+    ```bash
+    docker compose -f docker-compose-broker.yml up -d --build
     ```
 
 ### Check the Container Status
