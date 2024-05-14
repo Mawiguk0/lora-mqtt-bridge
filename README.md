@@ -53,10 +53,11 @@ The application uses the following environment variables, which you can set in a
     docker-compose up -d
     ```
 
-You can also run following to build and start the broker included docker-compose-broker.yml
-    ```bash
-    docker compose -f docker-compose-broker.yml up -d --build
-    ```
+**You can also run following to build and start the broker included docker-compose-broker.yml**  
+
+```bash
+docker compose -f docker-compose-broker.yml up -d --build
+```
 
 ### Check the Container Status
 
