@@ -1,0 +1,35 @@
+services:
+  mqtt-broker:
+    image: eclipse-mosquitto:latest
+    container_name: mqtt-broker
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+
+  lora_monitor:
+    build: .
+    environment:
+      - MQTT_SERVER=mqtt-broker
+      - MQTT_PORT=1883
+      - MQTT_TOPIC=lora/
+      - TEMPERATURE_TOPIC=bridge/temperature
+      - UPTIME_TOPIC=bridge/uptime
+      - SERIAL_URL=/dev/ttyS0
+      - SERIAL_BAUDRATE=9600
+      - SLEEP_INTERVAL=60
+    devices:
+      - "/dev/ttyS0:/dev/ttyS0"
+    depends_on:
+      - mqtt-broker
+    restart: unless-stopped
+    user: root
+    healthcheck:
+      test: ["CMD", "./healthcheck.sh"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
